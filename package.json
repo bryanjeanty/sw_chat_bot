@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nf start",
+    "client": "npm start --prefix ./client",
+    "server": "nodemon server/index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +18,9 @@
     "express": "^4.16.4",
     "node-fetch": "^2.5.0",
     "pusher": "^2.2.0"
+  },
+  "devDependencies": {
+    "foreman": "^3.0.1",
+    "nodemon": "^1.19.0"
   }
 }
