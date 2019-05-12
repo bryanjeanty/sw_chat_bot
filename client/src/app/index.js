@@ -1,9 +1,18 @@
 // import dependencies
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import Pusher from "pusher-js";
 
-// setup initial variables
-const { PUSHER_KEY, PUSHER_CLUSTER } = process.env;
+// import styles
+import {
+  chatTitleStyles,
+  chatWindowStyles,
+  convoViewStyles,
+  msgBoxStyles,
+  textInputStyles,
+  formStyles,
+  chatBubbleStyles,
+  chatContentStyles
+} from "../styles/AppStyles.js";
 
 export default class App extends Component {
   constructor(props) {
@@ -15,84 +24,100 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-     const pusher = new Pusher(PUSHER_KEY, {
-        cluster: PUSHER_CLUSTER,
-        encrypted: true
-     });
+    const pusher = new Pusher(process.env.PUSHER_KEY, {
+      cluster: process.env.PUSHER_CLUSTER,
+      useTLS: true
+    });
 
-     const channel = pusher.subscribe('bot');
-     channel.bind('bot-response', data => {
-        const msg = {
-           text: data.message,
-           user: 'ai'
-        };
-        this.setState({
-           conversation: [...this.state.conversation, msg]
-        });
-     });
+    const channel = pusher.subscribe("bot");
+    channel.bind("bot-response", data => {
+      const msg = {
+        text: data.message,
+        user: "ai"
+      };
+      this.setState({
+        conversation: [...this.state.conversation, msg]
+      });
+    });
   }
 
   handleChange = event => {
-     this.setState({ [event.target.name]: event.target.value });
-  }
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
   handleSubmit = event => {
-     event.preventDefault();
-     if (!this.state.userMessage.trim()) return;
+    event.preventDefault();
+    if (!this.state.userMessage.trim()) return;
 
-     const msg = {
-        text: this.state.userMessage,
-        user: 'human'
-     }
+    const msg = {
+      text: this.state.userMessage,
+      user: "human"
+    };
 
-     this.setState({
-        conversation: [...this.state.conversation, msg]
-     });
+    this.setState({
+      conversation: [...this.state.conversation, msg]
+    });
 
-     const fetchOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: this.state.userMessage })
-     };
+    const fetchOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: this.state.userMessage })
+    };
 
-     fetch('http://localhost:5000/chat', fetchOptions);
+    fetch("https://localhost:5100/chat", fetchOptions);
 
-     this.setState({ userMessage: '' });
-  }
+    this.setState({ userMessage: "" });
+  };
 
   render() {
     const ChatBubble = (text, index, className) => {
-       return(
-          <div key={`${className}-${index}`} className=`${className} chat-bubble`>
-             <span className="chat-content">{text}</span>
-          </div>
-       );
+      return (
+        <div
+          style={chatBubbleStyles}
+          key={`${className}-${index}`}
+          className="chat-bubble"
+        >
+          <span
+            style={chatContentStyles}
+            className={`${className} chat-content`}
+          >
+            {text}
+          </span>
+        </div>
+      );
     };
 
+    //if (this.state.conversation.length) {
     const chat = this.state.conversation.map((convo, index) => {
-       ChatBubble(convo.text, index, convo.user);
+      return ChatBubble(convo.text, index, convo.user);
     });
+    //}
 
     return (
-       <div>
-          <h1>React Chatbot</h1>
-          <div className="chat-window">
-             <div className="conversation-view">{chat}</div>
-             <div className="message-box">
-                <form onSubmit={this.handleSubmit}>
-                   <input
-                      value={this.state.userMessage}
-                      name="userMessage"
-                      onInput={this.handleChange}
-                      className="text-input"
-                      type="text"
-                      autofocus
-                      placeholder="Enter message..."
-                   />
-                </form>
-             </div>
+      <div>
+        <h1 style={chatTitleStyles} className="chat-title">
+          React Chatbot
+        </h1>
+        <div style={chatWindowStyles} className="chat-window">
+          <div style={convoViewStyles} className="conversation-view">
+            {chat}
           </div>
-       </div>
+          <div style={msgBoxStyles} className="message-box">
+            <form style={formStyles} onSubmit={this.handleSubmit}>
+              <input
+                style={textInputStyles}
+                value={this.state.userMessage}
+                name="userMessage"
+                onChange={this.handleChange}
+                className="text-input"
+                type="text"
+                autoFocus
+                placeholder="Enter message..."
+              />
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
 }

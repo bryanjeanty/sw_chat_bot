@@ -1,0 +1,21 @@
+html, body {
+font: 14px/1.21 'Helvetica Neue', Arial, sans-serif;
+font-weight: 400;
+box-sizing: border-box;
+}
+
+*, *::before, *::after {
+box-sizing: inherit;
+margin: 0;
+padding: 0;
+}
+
+.ai.chat-content {
+margin-left: auto;
+margin-right: 0;
+background-color: #4c9689;
+}
+
+.human.chat-content {
+background-color: #0747a7;
+}
