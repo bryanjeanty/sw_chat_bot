@@ -111,8 +111,8 @@ export default class App extends Component {
                 onChange={this.handleChange}
                 className="text-input"
                 type="text"
-                autoFocus
                 placeholder="Enter message..."
+                autoComplete="off"
               />
             </form>
           </div>

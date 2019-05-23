@@ -1,39 +1,49 @@
 // chat title styles
 export const chatTitleStyles = {
    textAlign: 'center',
-   marginTop: 20,
-   marginBottom: 20
+   margin: "0.75rem 0",
+   fontWeight: 375,
+   fontSize: "2rem"
 }
 
 // chat window styles
 export const chatWindowStyles = {
-   width: 750,
+   width: '90%',
    margin: 'auto',
-   border: '1px solid #d5d5d5',
    position: 'relative'
 }
 
 // conversation view styles
 export const convoViewStyles = {
    width: '100%',
-   minHeight: 500,
-   backgroundColor: '#e5ddd5',
+   height: 500,
+   overflow: "auto",
+   backgroundColor: '#F3F3F4',
    display: 'flex',
-   flexDirection: 'column'
+   flexDirection: 'column',
+   padding: "1rem",
+   borderTopLeftRadius: 5,
+   borderTopRightRadius: 5,
+   boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.20)"
 }
 
 // message box styles
 export const msgBoxStyles = {
    width: '100%',
    padding: '20px 0',
-   position: 'relative'
+   position: 'relative',
+   backgroundColor: "#C20114",
+   borderBottomLeftRadius: 5,
+   borderBottomRightRadius: 5,
+   boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.20)"
 }
 
 // text input styles
 export const textInputStyles = {
    width: '100%',
    border: 'none',
-   paddingTop: '10px'
+   padding: '0.5rem',
+   borderRadius: 40
 }
 
 // form styles
@@ -53,7 +63,6 @@ export const chatBubbleStyles = {
 export const chatContentStyles = {
    display: 'inline-block',
    padding: '8px 15px',
-   //backgroundColor: 'black',
    color: 'white',
-   borderRadius: 10
+   borderRadius: 5
 }

@@ -1,7 +1,11 @@
 html, body {
-font: 14px/1.21 'Helvetica Neue', Arial, sans-serif;
-font-weight: 400;
+font-size: 1.1rem; 
+font-family: sans-serif;
+font-weight: 200;
 box-sizing: border-box;
+height: 100%;
+width: 100%;
+overflow: hidden;
 }
 
 *, *::before, *::after {
@@ -10,12 +14,22 @@ margin: 0;
 padding: 0;
 }
 
+body {
+background-color: #CCCBD3;
+}
+
 .ai.chat-content {
 margin-left: auto;
 margin-right: 0;
-background-color: #4c9689;
+background-color: #70A9A1;
+box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.20);
 }
 
 .human.chat-content {
-background-color: #0747a7;
+background-color: #3D5D8C;
+box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.20);
+}
+
+.text-input:focus {
+outline: none;
 }

@@ -44,12 +44,6 @@ const processMessage = message => {
 
       if (result.intent.displayName === 'detect-person') {
          const person = result.parameters.fields.person.structValue.fields.name.stringValue;
-         console.log('Parameter Fields', result.parameters.fields.person.structValue.fields.name.stringValue);
-         console.log('-------------');
-         console.log('-------------');
-         console.log('Detect Person', person);
-         console.log('-------------');
-         console.log('-------------');
          return getPersonInfo(person).then(info => {
             const { name, height, mass, birth_year, gender } = info;
             return pusher.trigger('bot', 'bot-response', {
